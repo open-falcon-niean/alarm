@@ -4,11 +4,10 @@ import (
 	"flag"
 	"fmt"
 	"github.com/open-falcon/alarm/cron"
+	"github.com/open-falcon/alarm/exco"
 	"github.com/open-falcon/alarm/g"
 	"github.com/open-falcon/alarm/http"
 	"os"
-	"os/signal"
-	"syscall"
 )
 
 func main() {
@@ -30,21 +29,15 @@ func main() {
 	g.ParseConfig(*cfg)
 	g.InitRedisConnPool()
 
+	// exco
+	exco.Start()
+
 	go http.Start()
 
 	go cron.ReadHighEvent()
 	go cron.ReadLowEvent()
 	go cron.CombineSms()
 	go cron.CombineMail()
-
-	sigs := make(chan os.Signal, 1)
-	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
-	go func() {
-		<-sigs
-		fmt.Println()
-		g.RedisConnPool.Close()
-		os.Exit(0)
-	}()
 
 	select {}
 }

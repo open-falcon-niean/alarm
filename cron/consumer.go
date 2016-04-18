@@ -2,14 +2,23 @@ package cron
 
 import (
 	"encoding/json"
+	"log"
+
 	"github.com/open-falcon/alarm/api"
+	"github.com/open-falcon/alarm/exco"
 	"github.com/open-falcon/alarm/g"
 	"github.com/open-falcon/alarm/redis"
 	"github.com/open-falcon/common/model"
-	"log"
 )
 
 func consume(event *model.Event, isHigh bool) {
+	// 复合表达式检测
+	do_alarm := exco.CheckExcoAlarm(event, isHigh)
+	if !do_alarm {
+		return
+	}
+
+	// do others
 	actionId := event.ActionId()
 	if actionId <= 0 {
 		return

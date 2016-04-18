@@ -1,12 +1,14 @@
 package http
 
 import (
+	"encoding/json"
 	"fmt"
 	"sort"
 	"strings"
 	"time"
 
 	"github.com/astaxie/beego"
+	"github.com/open-falcon/alarm/exco"
 	"github.com/open-falcon/alarm/g"
 	"github.com/toolkits/file"
 )
@@ -77,4 +79,14 @@ func (this *MainController) Solve() {
 	}
 
 	this.Ctx.WriteString("")
+}
+
+func (this *MainController) ExcoConfig() {
+	bs, _ := json.Marshal([]interface{}{map[string]interface{}{"subs": exco.SubMap, "main_subs": exco.MainSubMap}})
+	this.Ctx.WriteString(string(bs))
+}
+
+func (this *MainController) ExcoStatus() {
+	bs, _ := json.Marshal([]interface{}{map[string]interface{}{"sub_status": exco.SubStatus, "main_status": exco.MainExcoStatus}})
+	this.Ctx.WriteString(string(bs))
 }

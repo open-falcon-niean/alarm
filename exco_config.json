@@ -1,0 +1,26 @@
+{
+    "ecs": [
+        {
+            "main": "1",
+            "exs": [
+                {
+                    "id": "1",
+                    "counter": "open/cpu.busy"
+                },
+                {
+                    "id": "2",
+                    "counter": "open/mem.memused.percent"
+                }
+            ]
+        },
+        {
+            "main": "2",
+            "exs": [
+                {
+                    "id": "2",
+                    "counter": "open/mem.memused.percent"
+                }
+            ]
+        }
+    ]
+}

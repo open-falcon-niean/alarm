@@ -109,6 +109,8 @@ elif [ "$1" == "pack" ];then
     pack
 elif [ "$1" == "packbin" ];then
     packbin
+elif [ "$1" == "reload" ];then
+    build && restart && tailf
 else
     help
 fi

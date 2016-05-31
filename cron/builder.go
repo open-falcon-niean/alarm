@@ -28,7 +28,8 @@ func BuildCommonSMSContent(event *model.Event) string {
 func BuildCommonMailContent(event *model.Event) string {
 	link := g.Link(event)
 	return fmt.Sprintf(
-		"%s\r\nP%d\r\nEndpoint:%s\r\nMetric:%s\r\nTags:%s\r\n%s: %s%s%s\r\nNote:%s\r\nMax:%d, Current:%d\r\nTimestamp:%s\r\n%s\r\n",
+		//"%s\r\nP%d\r\nEndpoint:%s\r\nMetric:%s\r\nTags:%s\r\n%s: %s%s%s\r\nNote:%s\r\nMax:%d, Current:%d\r\nTimestamp:%s\r\n%s\r\n",
+		"%s<br>P%d<br>Endpoint:%s<br>Metric:%s<br>Tags:%s<br>%s: %s%s%s<br>Note:%s<br>Max:%d, Current:%d<br>Timestamp:%s<br>%s<br>",
 		event.Status,
 		event.Priority(),
 		event.Endpoint,
